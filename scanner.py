@@ -1,4 +1,3 @@
-
 import re
 
 keywords = {
@@ -86,10 +85,10 @@ def scan(code):
                 continue
 
             # Identifiers and keywords
-            if line[i].isalpha():
+            if re.fullmatch(r"[A-Za-z]", line[i]):
                 word = ""
 
-                while i < len(line) and (line[i].isalnum() or line[i] == "_"):
+                while i < len(line) and re.fullmatch(r"[A-Za-z0-9_]", line[i]):
                     word += line[i]
                     i += 1
 
@@ -97,6 +96,7 @@ def scan(code):
                     errors.append((line_number, "Identifier too long", word))
                 else:
                     token_type = recognize_word(word)
+
                     if token_type == "INVALID":
                         errors.append((line_number, "Unknown symbol", word))
                     else:
@@ -120,7 +120,6 @@ def scan(code):
                             i += 1
                         else:
                             break
-
                     else:
                         break
 
@@ -167,3 +166,6 @@ def scan(code):
                 i += 1
 
     return tokens, errors
+
+
+               

@@ -1,4 +1,3 @@
-
 from scanner import scan
 
 # Test 1: Correct program
